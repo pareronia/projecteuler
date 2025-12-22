@@ -5,13 +5,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor(staticName = "create")
 public class Problem0014 extends ProblemBase {
     
     private final transient Integer input;
     private final transient Map<Long, Long> lengths = new HashMap<>();
+    
+    private Problem0014(final Integer input) {
+    	this.input = input;
+	}
+
+	public static Problem0014 create(final Integer input) {
+    	return new Problem0014(input);
+    }
     
     private Long lengthOfCollatzSequence(final Long start) {
         if (this.lengths.containsKey(start)) {

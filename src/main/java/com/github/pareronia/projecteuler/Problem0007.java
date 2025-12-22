@@ -2,12 +2,17 @@ package com.github.pareronia.projecteuler;
 
 import static com.github.pareronia.projecteuler.Primes.isPrime;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor(staticName = "create")
 public class Problem0007 extends ProblemBase {
     
     private final transient Integer input;
+
+    private Problem0007(final Integer input) {
+    	this.input = input;
+	}
+
+	public static Problem0007 create(final Integer input) {
+    	return new Problem0007(input);
+    }
     
     @Override
     public Long solve() {

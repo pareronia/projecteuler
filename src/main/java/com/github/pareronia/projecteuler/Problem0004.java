@@ -2,12 +2,17 @@ package com.github.pareronia.projecteuler;
 
 import static com.github.pareronia.projecteuler.Primes.isPrime;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor(staticName = "create")
 public class Problem0004 extends ProblemBase {
     
     private final transient Integer input;
+
+    private Problem0004(final Integer input) {
+    	this.input = input;
+	}
+
+	public static Problem0004 create(final Integer input) {
+    	return new Problem0004(input);
+    }
     
     private boolean isPalindrome(final Long number) {
         final String string = number.toString();

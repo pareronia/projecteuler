@@ -7,9 +7,6 @@ import java.util.Arrays;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 import org.apache.commons.lang3.ArrayUtils;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor(staticName = "create")
 public class Problem0008 extends ProblemBase {
     
     private static final String NUMBER =
@@ -35,6 +32,14 @@ public class Problem0008 extends ProblemBase {
             "71636269561882670428252483600823257530420752963450";
 
     private final transient Integer input;
+
+    private Problem0008(final Integer input) {
+    	this.input = input;
+	}
+
+	public static Problem0008 create(final Integer input) {
+    	return new Problem0008(input);
+    }
     
     @Override
     public Long solve() {

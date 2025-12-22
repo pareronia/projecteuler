@@ -1,13 +1,18 @@
 package com.github.pareronia.projecteuler;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor(staticName = "create")
 public class Problem0002 extends ProblemBase {
     
     private final transient Long input;
     
-    public Long solveOverview() {
+    private Problem0002(final Long input) {
+		this.input = input;
+	}
+
+    public static Problem0002 create(final Long input) {
+    	return new Problem0002(input);
+    }
+
+	public Long solveOverview() {
         long sum = 2;
         long termN_2 = 0;
         long termN_1 = 2;

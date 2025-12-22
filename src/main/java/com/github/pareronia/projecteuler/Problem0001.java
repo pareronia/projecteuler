@@ -9,16 +9,21 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Stream;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor(staticName = "create")
 public class Problem0001 extends ProblemBase {
     
     private static final int SECOND = 5;
     private static final int FIRST = 3;
     
     private final transient Integer input;
-    
+
+    private Problem0001(final Integer input) {
+    	this.input = input;
+	}
+
+	public static Problem0001 create(final Integer input) {
+    	return new Problem0001(input);
+    }
+
     private Long sumDivisibleBy(final Integer target, final Integer divisor) {
         final long temp = (target - 1) / divisor;
         return divisor * (temp * (temp + 1)) / 2L;

@@ -1,11 +1,16 @@
 package com.github.pareronia.projecteuler;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor(staticName = "create")
 public class Problem0005 extends ProblemBase {
     
     private final transient Integer input;
+
+    private Problem0005(final Integer input) {
+    	this.input = input;
+	}
+
+	public static Problem0005 create(final Integer input) {
+    	return new Problem0005(input);
+    }
     
     @Override
     public Long solve() {

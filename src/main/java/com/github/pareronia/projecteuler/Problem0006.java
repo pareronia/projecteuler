@@ -2,12 +2,17 @@ package com.github.pareronia.projecteuler;
 
 import java.math.BigInteger;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor(staticName = "create")
 public class Problem0006 extends ProblemBase {
     
     private final transient Long input;
+    
+    private Problem0006(final Long input) {
+		this.input = input;
+	}
+
+    public static Problem0006 create(final Long input) {
+    	return new Problem0006(input);
+    }
     
     public BigInteger solveOverview() {
         final BigInteger sumOfSquares = BigInteger.valueOf(this.input)

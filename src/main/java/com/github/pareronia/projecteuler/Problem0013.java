@@ -2,10 +2,8 @@ package com.github.pareronia.projecteuler;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.function.BinaryOperator;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor(staticName = "create")
 public class Problem0013 extends ProblemBase {
     
     private static final String NUMBERS =
@@ -111,12 +109,20 @@ public class Problem0013 extends ProblemBase {
             "53503534226472524250874054075591789781264330331690";
 
     private final transient Integer input;
+
+    private Problem0013(final Integer input) {
+    	this.input = input;
+	}
+
+	public static Problem0013 create(final Integer input) {
+    	return new Problem0013(input);
+    }
     
     @Override
     public Long solve() {
         final BigInteger big = Arrays.stream(NUMBERS.split("\\r?\\n"))
                 .map(s -> new BigInteger(s, 10))
-                .reduce(BigInteger.ZERO, (a, b) -> a.add(b));
+                .reduce(BigInteger.ZERO, (BinaryOperator<BigInteger>) BigInteger::add);
         return Long.valueOf(big.toString().substring(0, this.input));
     }
 

@@ -7,12 +7,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor(staticName = "create")
 public class Problem0009 extends ProblemBase {
     
     private final transient Integer input;
+
+    private Problem0009(final Integer input) {
+    	this.input = input;
+	}
+
+	public static Problem0009 create(final Integer input) {
+    	return new Problem0009(input);
+    }
     
     @Override
     public Long solve() {
