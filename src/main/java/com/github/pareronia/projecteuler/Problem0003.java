@@ -1,6 +1,6 @@
 package com.github.pareronia.projecteuler;
 
-import static com.github.pareronia.projecteuler.Primes.isPrime;
+import static com.github.pareronia.projecteuler.math.Primes.isPrime;
 
 public class Problem0003 extends ProblemBase {
     
@@ -63,7 +63,7 @@ public class Problem0003 extends ProblemBase {
     public static void main(final String[] args) {
         assert Problem0003.create(13_195L).solve() == 29;
         assert Problem0003.create(100L).solve() == 5;
-//        assert Problem0003.create(3 *�71L).solve() == 71;
+//        assert Problem0003.create(3 * 71L).solve() == 71;
         assert Problem0003.create(13_195L).solveOverview() == 29;
         assert Problem0003.create(100L).solveOverview() == 5;
         assert Problem0003.create(3 * 71L).solveOverview() == 71;

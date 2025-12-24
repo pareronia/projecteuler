@@ -1,6 +1,6 @@
 package com.github.pareronia.projecteuler;
 
-import static com.github.pareronia.projecteuler.Primes.isPrime;
+import static com.github.pareronia.projecteuler.math.Primes.isPrime;
 
 public class Problem0004 extends ProblemBase {
     

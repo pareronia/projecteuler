@@ -1,4 +1,4 @@
-package com.github.pareronia.projecteuler;
+package com.github.pareronia.projecteuler.math;
 
 import java.util.ArrayList;
 import java.util.List;
