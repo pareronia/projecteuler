@@ -1,5 +1,7 @@
 package com.github.pareronia.projecteuler;
 
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
@@ -7,45 +9,42 @@ import java.util.stream.LongStream;
 
 import com.github.pareronia.projecteuler.math.Factorials;
 
-public class Problem0015 extends ProblemBase {
+public class Problem0015 extends ProblemBase<Long, Long> {
 
-    private final transient Integer input;
-
-    private Problem0015(final Integer input) {
-        this.input = input;
+    private Problem0015() {
     }
 
-    public static Problem0015 create(final Integer input) {
-        return new Problem0015(input);
+    public static Problem0015 create() {
+        return new Problem0015();
     }
 
-    public long solveRecursive() {
-        return new Recursive().count(this.input);
+    public long solveRecursive(final long input) {
+        return new Recursive().count((int) input);
     }
 
-    public long solveIterative() {
-        return new Iterative(this.input).count();
+    public long solveIterative(final long input) {
+        return new Iterative((int) input).count();
     }
 
-    public long solveOverview() {
-        return LongStream.rangeClosed(1, this.input)
-                .reduce(1L, (acc, n) -> acc * (this.input + n) / n);
+    public long solveOverview(final long input) {
+        return LongStream.rangeClosed(1, input)
+                .reduce(1L, (acc, n) -> acc * (input + n) / n);
     }
 
     @Override
-    public Long solve() {
-        return Factorials.get(2 * this.input).divide(Factorials.get(this.input).pow(2)).longValue();
+    public Long solve(final Long input) {
+        return Factorials.get(2 * input).divide(Factorials.get(input).pow(2)).longValue();
     }
 
     public static void main(final String[] args) {
-        assert Problem0015.create(2).solve() == 6;
-        assert Problem0015.create(2).solveRecursive() == 6;
-        assert Problem0015.create(2).solveIterative() == 6;
-        assert Problem0015.create(2).solveOverview() == 6;
-        lap("20", () -> Problem0015.create(20).solve());
-        lap("20 [recursive]", () -> Problem0015.create(20).solveRecursive());
-        lap("20 [iterative]", () -> Problem0015.create(20).solveIterative());
-        lap("20 [overview]", () -> Problem0015.create(20).solveOverview());
+        assert Problem0015.create().solve(2L) == 6;
+        assert Problem0015.create().solveRecursive(2) == 6;
+        assert Problem0015.create().solveIterative(2) == 6;
+        assert Problem0015.create().solveOverview(2) == 6;
+        lap("20", () -> Problem0015.create().solve(20L));
+        lap("20 [recursive]", () -> Problem0015.create().solveRecursive(20));
+        lap("20 [iterative]", () -> Problem0015.create().solveIterative(20));
+        lap("20 [overview]", () -> Problem0015.create().solveOverview(20));
     }
 
     private static final class Recursive {

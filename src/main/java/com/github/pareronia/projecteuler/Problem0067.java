@@ -1,31 +1,34 @@
 package com.github.pareronia.projecteuler;
 
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
-public class Problem0067 extends ProblemBase {
+import com.github.pareronia.projecteuler.util.ProblemUtils;
 
-    private final transient int[][] input;
+public class Problem0067 extends ProblemBase<String, Long> {
 
-    private Problem0067(final Stream<String> input) {
-        this.input =
-                input.map(
+    private Problem0067() {
+    }
+
+    public static Problem0067 create() {
+        return new Problem0067();
+    }
+
+    @Override
+    public Long solve(final String input) {
+        final int[][] triangle =
+                Arrays.stream(input.split("\\r?\\n"))
+                        .map(
                                 row ->
                                         Arrays.stream(row.split(" "))
                                                 .mapToInt(Integer::parseInt)
                                                 .toArray())
                         .toArray(int[][]::new);
-    }
 
-    public static Problem0067 create(final Stream<String> input) {
-        return new Problem0067(input);
-    }
-
-    @Override
-    public Long solve() {
-        return new MaxPathSum(this.input).get(0, 0);
+        return new MaxPathSum(triangle).get(0, 0);
     }
 
     public static void main(final String[] args) {
@@ -36,8 +39,9 @@ public class Problem0067 extends ProblemBase {
                 2 4 6
                 8 5 9 3
                 """;
-        assert Problem0067.create(Arrays.stream(test.split("\\r?\\n"))).solve() == 23;
-        lap("triangle.txt", () -> Problem0067.create(lines("0067_triangle.txt")).solve());
+        assert Problem0067.create().solve(test) == 23;
+        final String triangle = ProblemUtils.readString("0067_triangle.txt");
+        lap("triangle.txt", () -> Problem0067.create().solve(triangle));
     }
 
     private static final class MaxPathSum {

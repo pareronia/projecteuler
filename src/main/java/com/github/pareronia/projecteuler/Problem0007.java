@@ -1,30 +1,28 @@
 package com.github.pareronia.projecteuler;
 
 import static com.github.pareronia.projecteuler.math.Primes.isPrime;
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
 
-public class Problem0007 extends ProblemBase {
+public class Problem0007 extends ProblemBase<Long, Long> {
 
-    private final transient Integer input;
-
-    private Problem0007(final Integer input) {
-        this.input = input;
+    private Problem0007() {
     }
 
-    public static Problem0007 create(final Integer input) {
-        return new Problem0007(input);
+    public static Problem0007 create() {
+        return new Problem0007();
     }
 
     @Override
-    public Long solve() {
-        if (this.input == 1) {
+    public Long solve(final Long input) {
+        if (input == 1) {
             return 2L;
         }
-        if (this.input == 2) {
+        if (input == 2) {
             return 3L;
         }
         int cnt = 2;
         long prime = 3L;
-        while (cnt < this.input) {
+        while (cnt < input) {
             prime += 2;
             if (isPrime(prime)) {
                 cnt++;
@@ -34,9 +32,9 @@ public class Problem0007 extends ProblemBase {
     }
 
     public static void main(final String[] args) {
-        assert Problem0007.create(6).solve().intValue() == 13;
+        assert Problem0007.create().solve(6L) == 13;
 
-        lap("10001", () -> Problem0007.create(10_001).solve());
-        lap("1E5", () -> Problem0007.create(100_000).solve());
+        lap("10001", () -> Problem0007.create().solve(10_001L));
+        lap("1E5", () -> Problem0007.create().solve(100_000L));
     }
 }

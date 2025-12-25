@@ -1,23 +1,22 @@
 package com.github.pareronia.projecteuler;
 
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
+
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
-public class Problem0030 extends ProblemBase {
+public class Problem0030 extends ProblemBase<Long, Long> {
 
-    private final transient Integer input;
-
-    private Problem0030(final Integer input) {
-        this.input = input;
+    private Problem0030() {
     }
 
-    public static Problem0030 create(final Integer input) {
-        return new Problem0030(input);
+    public static Problem0030 create() {
+        return new Problem0030();
     }
 
     @Override
-    public Long solve() {
-        final int exp = this.input;
+    public Long solve(final Long input) {
+        final int exp = input.intValue();
         int limit = 0;
         while (true) {
             limit++;
@@ -43,8 +42,8 @@ public class Problem0030 extends ProblemBase {
     }
 
     public static void main(final String[] args) {
-        assert Problem0030.create(4).solve() == 19316;
-        lap("5", () -> Problem0030.create(5).solve());
-        lap("6", () -> Problem0030.create(6).solve());
+        assert Problem0030.create().solve(4L) == 19316;
+        lap("5", () -> Problem0030.create().solve(5L));
+        lap("6", () -> Problem0030.create().solve(6L));
     }
 }

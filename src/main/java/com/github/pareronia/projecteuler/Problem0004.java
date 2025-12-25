@@ -1,17 +1,15 @@
 package com.github.pareronia.projecteuler;
 
 import static com.github.pareronia.projecteuler.math.Primes.isPrime;
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
 
-public class Problem0004 extends ProblemBase {
+public class Problem0004 extends ProblemBase<Long, Long> {
     
-    private final transient Integer input;
-
-    private Problem0004(final Integer input) {
-    	this.input = input;
+    private Problem0004() {
 	}
 
-	public static Problem0004 create(final Integer input) {
-    	return new Problem0004(input);
+	public static Problem0004 create() {
+    	return new Problem0004();
     }
     
     private boolean isPalindrome(final Long number) {
@@ -25,12 +23,12 @@ public class Problem0004 extends ProblemBase {
     }
     
     @Override
-    public Long solve() {
-        if (this.input > 5) {
+    public Long solve(final Long input) {
+        if (input > 5) {
             throw new UnsupportedOperationException("Expected <= 5");
         }
-        final int max = (int) (Math.pow(10, this.input) - 1);
-        final int min = (int) Math.pow(10, this.input - 1);
+        final int max = (int) (Math.pow(10, input) - 1);
+        final int min = (int) Math.pow(10, input - 1);
         for (int p = max * max; p >= min * min; p--) {
             if (isPalindrome((long) p) && !isPrime((long) p)) {
                 for (int d = max; d >= min; d--) {
@@ -45,11 +43,11 @@ public class Problem0004 extends ProblemBase {
     }
 
     public static void main(final String[] args) {
-        assert Problem0004.create(2).solve() == 9_009;
-        assert Problem0004.create(3).solve() == 906_609;
+        assert Problem0004.create().solve(2L) == 9_009;
+        assert Problem0004.create().solve(3L) == 906_609;
         
-        lap("3", () -> Problem0004.create(3).solve());
-        lap("4", () -> Problem0004.create(4).solve());
-        lap("5", () -> Problem0004.create(5).solve());
+        lap("3", () -> Problem0004.create().solve(3L));
+        lap("4", () -> Problem0004.create().solve(4L));
+        lap("5", () -> Problem0004.create().solve(5L));
     }
 }

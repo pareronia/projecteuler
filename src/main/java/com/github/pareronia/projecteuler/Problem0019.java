@@ -1,10 +1,14 @@
 package com.github.pareronia.projecteuler;
 
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Set;
 
-public class Problem0019 extends ProblemBase {
+import com.github.pareronia.projecteuler.ProblemBase.NoInput;
+
+public class Problem0019 extends ProblemBase<NoInput, Long> {
 
     private Problem0019() {}
 
@@ -13,7 +17,7 @@ public class Problem0019 extends ProblemBase {
     }
 
     @Override
-    public Long solve() {
+    public Long solve(final NoInput _input) {
     	long ans = 0;
     	final LocalDate end = LocalDate.of(2001, 1, 1);
     	LocalDate date = LocalDate.of(1901, 1, 1);
@@ -26,7 +30,7 @@ public class Problem0019 extends ProblemBase {
         return ans;
     }
 
-    public long solveExt() {
+    public long solveExt(final NoInput _input) {
     	long ans = 0;
     	int day = 1;  // Tuesday 1 Jan 1901
     	for (int year = 1901; year <= 2000; year++) {
@@ -55,7 +59,7 @@ public class Problem0019 extends ProblemBase {
     }
 
     public static void main(final String[] args) {
-        lap("java.time", () -> Problem0019.create().solve());
-        lap("ext", () -> Problem0019.create().solveExt());
+        lap("java.time", () -> Problem0019.create().solve(null));
+        lap("ext", () -> Problem0019.create().solveExt(null));
     }
 }

@@ -1,24 +1,24 @@
 package com.github.pareronia.projecteuler;
 
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
+
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Problem0014 extends ProblemBase {
+public class Problem0014 extends ProblemBase<Long, Long> {
     
-    private final transient Integer input;
     private final transient Map<Long, Long> lengths = new HashMap<>();
     
-    private Problem0014(final Integer input) {
-    	this.input = input;
+    private Problem0014() {
 	}
 
-	public static Problem0014 create(final Integer input) {
-    	return new Problem0014(input);
+	public static Problem0014 create() {
+    	return new Problem0014();
     }
     
-    private Long lengthOfCollatzSequence(final Long start) {
+    private Long lengthOfCollatzSequence(final long start) {
         if (this.lengths.containsKey(start)) {
             return this.lengths.get(start);
         }
@@ -36,8 +36,8 @@ public class Problem0014 extends ProblemBase {
     }
     
     @Override
-    public Long solve() {
-        for (long i = this.input / 2; i < this.input; i++) {
+    public Long solve(final Long input) {
+        for (long i = input / 2; i < input; i++) {
             lengthOfCollatzSequence(i);
         }
         
@@ -47,7 +47,7 @@ public class Problem0014 extends ProblemBase {
     }
 
     public static void main(final String[] args) {
-        lap("1E6", () -> Problem0014.create(1_000_000).solve());
-        lap("5E6", () -> Problem0014.create(5_000_000).solve());
+        lap("1E6", () -> Problem0014.create().solve(1_000_000L));
+        lap("5E6", () -> Problem0014.create().solve(5_000_000L));
     }
 }

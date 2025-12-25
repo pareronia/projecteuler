@@ -1,10 +1,12 @@
 package com.github.pareronia.projecteuler;
 
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
+
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.function.BinaryOperator;
 
-public class Problem0013 extends ProblemBase {
+public class Problem0013 extends ProblemBase<Long, Long> {
 
     private static final String NUMBERS =
             """
@@ -110,26 +112,23 @@ public class Problem0013 extends ProblemBase {
             53503534226472524250874054075591789781264330331690
             """;
 
-    private final transient Integer input;
-
-    private Problem0013(final Integer input) {
-        this.input = input;
+    private Problem0013() {
     }
 
-    public static Problem0013 create(final Integer input) {
-        return new Problem0013(input);
+    public static Problem0013 create() {
+        return new Problem0013();
     }
 
     @Override
-    public Long solve() {
+    public Long solve(final Long input) {
         final BigInteger big =
                 Arrays.stream(NUMBERS.split("\\r?\\n"))
                         .map(s -> new BigInteger(s, 10))
                         .reduce(BigInteger.ZERO, (BinaryOperator<BigInteger>) BigInteger::add);
-        return Long.valueOf(big.toString().substring(0, this.input));
+        return Long.valueOf(big.toString().substring(0, input.intValue()));
     }
 
     public static void main(final String[] args) {
-        lap("10", () -> Problem0013.create(10).solve());
+        lap("10", () -> Problem0013.create().solve(10L));
     }
 }

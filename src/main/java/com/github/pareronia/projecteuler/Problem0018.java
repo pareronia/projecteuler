@@ -1,32 +1,34 @@
 package com.github.pareronia.projecteuler;
 
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
+
 import java.util.Arrays;
 
-public class Problem0018 extends ProblemBase {
+import com.github.pareronia.projecteuler.util.ProblemUtils;
 
-    private static final String TRIANGLE =
-            """
-            75
-            95 64
-            17 47 82
-            18 35 87 10
-            20 04 82 47 65
-            19 01 23 75 03 34
-            88 02 77 73 07 63 67
-            99 65 04 28 06 16 70 92
-            41 41 26 56 83 40 80 70 33
-            41 48 72 33 47 32 37 16 94 29
-            53 71 44 65 25 43 91 52 97 51 14
-            70 11 33 28 77 73 17 78 39 68 17 57
-            91 71 52 38 17 14 91 43 58 50 27 29 48
-            63 66 04 68 89 53 67 30 73 16 69 87 40 31
-            04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
-            """;
+public class Problem0018 extends ProblemBase<String, Long> {
 
-    private final transient int[][] input;
+    private Problem0018() {
+    }
 
-    private Problem0018(final String input) {
-        this.input =
+    public static Problem0018 create() {
+        return new Problem0018();
+    }
+
+    private long maxPathSum(final int[][] triangle, final int row, final int col) {
+        final int val = triangle[row][col];
+        if (row == triangle.length - 1) {
+            return val;
+        }
+        return val
+                + Math.max(
+                        this.maxPathSum(triangle, row + 1, col),
+                        this.maxPathSum(triangle, row + 1, col + 1));
+    }
+
+    @Override
+    public Long solve(final String input) {
+        final int[][] triangle =
                 Arrays.stream(input.split("\\r?\\n"))
                         .map(
                                 row ->
@@ -34,23 +36,8 @@ public class Problem0018 extends ProblemBase {
                                                 .mapToInt(Integer::parseInt)
                                                 .toArray())
                         .toArray(int[][]::new);
-    }
 
-    public static Problem0018 create(final String input) {
-        return new Problem0018(input);
-    }
-
-    private long maxPathSum(final int row, final int col) {
-        final int val = this.input[row][col];
-        if (row == this.input.length - 1) {
-            return val;
-        }
-        return val + Math.max(this.maxPathSum(row + 1, col), this.maxPathSum(row + 1, col + 1));
-    }
-
-    @Override
-    public Long solve() {
-        return this.maxPathSum(0, 0);
+        return this.maxPathSum(triangle, 0, 0);
     }
 
     public static void main(final String[] args) {
@@ -61,7 +48,8 @@ public class Problem0018 extends ProblemBase {
                 2 4 6
                 8 5 9 3
                 """;
-        assert Problem0018.create(test).solve() == 23;
-        lap("TRIANGLE", () -> Problem0018.create(TRIANGLE).solve());
+        assert Problem0018.create().solve(test) == 23;
+        final String triangle = ProblemUtils.readString("0018_triangle.txt");
+        lap("triangle.txt", () -> Problem0018.create().solve(triangle));
     }
 }

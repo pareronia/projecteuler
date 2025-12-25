@@ -1,12 +1,17 @@
 package com.github.pareronia.projecteuler;
 
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class Problem0022 extends ProblemBase {
+import com.github.pareronia.projecteuler.util.ProblemUtils;
 
-    private Problem0022() {}
+public class Problem0022 extends ProblemBase<String, Long> {
+
+    private Problem0022() {
+    }
 
     public static Problem0022 create() {
         return new Problem0022();
@@ -17,8 +22,7 @@ public class Problem0022 extends ProblemBase {
     }
 
     @Override
-    public Long solve() {
-        final String input = lines("0022_names.txt").toList().getFirst();
+    public Long solve(final String input) {
         final List<String> names =
                 Arrays.stream(input.substring(1, input.length() - 1).split("\",\""))
                         .sorted()
@@ -27,6 +31,7 @@ public class Problem0022 extends ProblemBase {
     }
 
     public static void main(final String[] args) {
-        lap("names.txt", () -> Problem0022.create().solve());
+    	final String input = ProblemUtils.readString("0022_names.txt");
+        lap("names.txt", () -> Problem0022.create().solve(input));
     }
 }

@@ -1,9 +1,11 @@
 package com.github.pareronia.projecteuler;
 
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class Problem0017 extends ProblemBase {
+public class Problem0017 extends ProblemBase<Long, Long> {
 
     private static final Map<Integer, Integer> MAP = new HashMap<>();
 
@@ -39,20 +41,17 @@ public class Problem0017 extends ProblemBase {
         MAP.put(1000, "thousand".length());
     }
 
-    private final transient Integer input;
-
-    private Problem0017(final Integer input) {
-        this.input = input;
+    private Problem0017() {
     }
 
-    public static Problem0017 create(final Integer input) {
-        return new Problem0017(input);
+    public static Problem0017 create() {
+        return new Problem0017();
     }
 
     @Override
-    public Long solve() {
+    public Long solve(final Long input) {
     	long ans = 0L;
-    	for (int n = 1; n <= this.input; n++) {
+    	for (int n = 1; n <= input; n++) {
     		ans += subSolve(n);
 		}
         return ans;
@@ -87,10 +86,10 @@ public class Problem0017 extends ProblemBase {
 	}
 
     public static void main(final String[] args) {
-        assert Problem0017.create(5).solve() == 19;
-        assert Problem0017.create(0).subSolve(100) == 10;
-        assert Problem0017.create(0).subSolve(342) == 23;
-        assert Problem0017.create(0).subSolve(115) == 20;
-        lap("1000", () -> Problem0017.create(1000).solve());
+        assert Problem0017.create().solve(5L) == 19;
+        assert Problem0017.create().subSolve(100) == 10;
+        assert Problem0017.create().subSolve(342) == 23;
+        assert Problem0017.create().subSolve(115) == 20;
+        lap("1000", () -> Problem0017.create().solve(1000L));
     }
 }

@@ -1,11 +1,13 @@
 package com.github.pareronia.projecteuler;
 
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
+
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 
-public class Problem0008 extends ProblemBase {
+public class Problem0008 extends ProblemBase<Long, Long> {
     
     private static final String NUMBER =
     		"""
@@ -31,14 +33,11 @@ public class Problem0008 extends ProblemBase {
             71636269561882670428252483600823257530420752963450\
             """;
 
-    private final transient Integer input;
-
-    private Problem0008(final Integer input) {
-    	this.input = input;
+    private Problem0008() {
 	}
 
-	public static Problem0008 create(final Integer input) {
-    	return new Problem0008(input);
+	public static Problem0008 create() {
+    	return new Problem0008();
     }
 	
 	private LongStream numbers() {
@@ -47,12 +46,12 @@ public class Problem0008 extends ProblemBase {
 	}
     
     @Override
-    public Long solve() {
+    public Long solve(final Long input) {
         final CircularFifoQueue<Long> buffer
-                = new CircularFifoQueue<>(this.input);
-        numbers().limit(this.input - 1).forEach(buffer::add);
+                = new CircularFifoQueue<>(input.intValue());
+        numbers().limit(input - 1).forEach(buffer::add);
         return numbers()
-                .skip(this.input - 1)
+                .skip(input - 1)
                 .map(n -> {
                     buffer.add(n);
                     return buffer.stream().reduce(1L, (a, b) -> a * b);
@@ -61,8 +60,8 @@ public class Problem0008 extends ProblemBase {
     }
 
     public static void main(final String[] args) {
-        assert Problem0008.create(4).solve().intValue() == 5832;
+        assert Problem0008.create().solve(4L) == 5832;
         
-        lap("13", () -> Problem0008.create(13).solve());
+        lap("13", () -> Problem0008.create().solve(13L));
     }
 }

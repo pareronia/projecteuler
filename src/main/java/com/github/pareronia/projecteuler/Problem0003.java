@@ -1,21 +1,19 @@
 package com.github.pareronia.projecteuler;
 
 import static com.github.pareronia.projecteuler.math.Primes.isPrime;
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
 
-public class Problem0003 extends ProblemBase {
+public class Problem0003 extends ProblemBase<Long, Long> {
     
-    private final transient Long input;
-    
-    private Problem0003(final Long input) {
-		this.input = input;
+    private Problem0003() {
 	}
 
-    public static Problem0003 create(final Long input) {
-    	return new Problem0003(input);
+    public static Problem0003 create() {
+    	return new Problem0003();
     }
     
-    public int solveOverview() {
-        long number = this.input;
+    public long solveOverview(final long input) {
+        long number = input;
         int lastFactor;
         if (number % 2 == 0) {
             lastFactor = 2;
@@ -42,18 +40,22 @@ public class Problem0003 extends ProblemBase {
         if (number == 1) {
             return lastFactor;
         } else {
-            return (int) number;
+            return number;
         }
     }
     
     @Override
-    public Long solve() {
-        if (isPrime(this.input)) {
-            return this.input;
+    public Long solve(final Long input) {
+    	return solveOverview(input);
+    }
+
+    private long solveInitial(final Long input) {
+        if (isPrime(input)) {
+            return input;
         }
-        final long start = (long) Math.floor(Math.sqrt(this.input));
+        final long start = (long) Math.floor(Math.sqrt(input));
         for (long i = start; i >= 2; i--) {
-            if (isPrime(i) && this.input % i == 0) {
+            if (isPrime(i) && input % i == 0) {
                 return i;
             }
         }
@@ -61,14 +63,14 @@ public class Problem0003 extends ProblemBase {
     }
 
     public static void main(final String[] args) {
-        assert Problem0003.create(13_195L).solve() == 29;
-        assert Problem0003.create(100L).solve() == 5;
-//        assert Problem0003.create(3 * 71L).solve() == 71;
-        assert Problem0003.create(13_195L).solveOverview() == 29;
-        assert Problem0003.create(100L).solveOverview() == 5;
-        assert Problem0003.create(3 * 71L).solveOverview() == 71;
+        assert Problem0003.create().solveInitial(13_195L) == 29;
+        assert Problem0003.create().solveInitial(100L) == 5;
+//        assert Problem0003.create().solve(3 * 71L) == 71;
+        assert Problem0003.create().solveOverview(13_195L) == 29;
+        assert Problem0003.create().solveOverview(100L) == 5;
+        assert Problem0003.create().solveOverview(3 * 71L) == 71;
         
-        lap("600851475143", () -> Problem0003.create(600_851_475_143L).solve());
-        lap("600851475143 [overview]", () -> Problem0003.create(600_851_475_143L).solveOverview());
+        lap("600851475143", () -> Problem0003.create().solveInitial(600_851_475_143L));
+        lap("600851475143 [overview]", () -> Problem0003.create().solve(600_851_475_143L));
     }
 }

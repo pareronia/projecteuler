@@ -1,5 +1,7 @@
 package com.github.pareronia.projecteuler;
 
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
+
 import java.util.Arrays;
 import java.util.OptionalLong;
 import java.util.stream.LongStream;
@@ -9,7 +11,7 @@ import org.apache.commons.collections4.queue.CircularFifoQueue;
 
 import com.github.pareronia.projecteuler.grid.IntGrid;
 
-public class Problem0011 extends ProblemBase {
+public class Problem0011 extends ProblemBase<Long, Long> {
 
     private static final String THE_GRID =
             """
@@ -39,22 +41,20 @@ public class Problem0011 extends ProblemBase {
                     Arrays.stream(THE_GRID.split("\\r?\\n"))
                             .map(row -> row.split(" "))
                             .toArray(String[][]::new));
-    private final transient Integer input;
 
-    private Problem0011(final Integer input) {
-        this.input = input;
+    private Problem0011() {
     }
 
-    public static Problem0011 create(final Integer input) {
-        return new Problem0011(input);
+    public static Problem0011 create() {
+        return new Problem0011();
     }
 
-    private OptionalLong maxProduct(final Stream<Integer> nums) {
-        final CircularFifoQueue<Long> buffer = new CircularFifoQueue<>(this.input);
+    private OptionalLong maxProduct(final Stream<Integer> nums, final long input) {
+        final CircularFifoQueue<Long> buffer = new CircularFifoQueue<>((int) input);
         return nums.mapToLong(
                         n -> {
                             buffer.add(n.longValue());
-                            if (buffer.size() == this.input) {
+                            if (buffer.size() == input) {
                                 return buffer.stream().reduce(1L, (a, b) -> a * b);
                             }
                             return 0L;
@@ -63,22 +63,22 @@ public class Problem0011 extends ProblemBase {
     }
 
     @Override
-    public Long solve() {
+    public Long solve(final Long input) {
         return LongStream.of(
                         GRID.getAllRowsValues()
-                                .mapToLong(nums -> maxProduct(nums).orElse(0))
+                                .mapToLong(nums -> maxProduct(nums, input).orElse(0))
                                 .max()
                                 .getAsLong(),
                         GRID.getAllColsValues()
-                                .mapToLong(nums -> maxProduct(nums).orElse(0))
+                                .mapToLong(nums -> maxProduct(nums, input).orElse(0))
                                 .max()
                                 .getAsLong(),
                         GRID.getAllDiagsUpValues()
-                                .mapToLong(nums -> maxProduct(nums).orElse(0))
+                                .mapToLong(nums -> maxProduct(nums, input).orElse(0))
                                 .max()
                                 .getAsLong(),
                         GRID.getAllDiagsDownValues()
-                                .mapToLong(nums -> maxProduct(nums).orElse(0))
+                                .mapToLong(nums -> maxProduct(nums, input).orElse(0))
                                 .max()
                                 .getAsLong())
                 .max()
@@ -86,9 +86,9 @@ public class Problem0011 extends ProblemBase {
     }
 
     public static void main(final String[] args) {
-        lap("4", () -> Problem0011.create(4).solve());
-        lap("5", () -> Problem0011.create(5).solve());
-        lap("6", () -> Problem0011.create(6).solve());
-        lap("7", () -> Problem0011.create(7).solve());
+        lap("4", () -> Problem0011.create().solve(4L));
+        lap("5", () -> Problem0011.create().solve(5L));
+        lap("6", () -> Problem0011.create().solve(6L));
+        lap("7", () -> Problem0011.create().solve(7L));
     }
 }

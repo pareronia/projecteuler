@@ -1,31 +1,34 @@
 package com.github.pareronia.projecteuler;
 
-public class Problem0005 extends ProblemBase {
-    
-    private final transient Integer input;
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
 
-    private Problem0005(final Integer input) {
-    	this.input = input;
+public class Problem0005 extends ProblemBase<Long, Long> {
+    
+    private Problem0005() {
 	}
 
-	public static Problem0005 create(final Integer input) {
-    	return new Problem0005(input);
+	public static Problem0005 create() {
+    	return new Problem0005();
     }
     
     @Override
-    public Long solve() {
-    	if (this.input == 10) {
+    public Long solve(final Long input) {
+    	return solveOverview(input);
+    }
+
+	private Long solveInitial(final Long input) {
+		if (input == 10) {
     		return 10L * 9 * 7 * 4;
     	}
-    	if (this.input == 20) {
+    	if (input == 20) {
 			return 20L * 19 * 17 * 13 * 11 * 9 * 7 * 4;
     	}
         throw new IllegalStateException("Unsolvable");
-    }
+	}
 
-    private Long solveOverview() {
+    private Long solveOverview(final long input) {
 		final long[] p = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41 };
-		final long k = this.input;
+		final long k = input;
 		long N = 1;
 		int i = 0;
 		boolean check = true;
@@ -46,13 +49,13 @@ public class Problem0005 extends ProblemBase {
     }
 
     public static void main(final String[] args) {
-        assert Problem0005.create(10).solve() == 2_520;
-        assert Problem0005.create(10).solveOverview() == 2_520;
-        assert Problem0005.create(20).solve() == 232_792_560;
-        assert Problem0005.create(20).solveOverview() == 232_792_560;
+        assert Problem0005.create().solveInitial(10L) == 2_520;
+        assert Problem0005.create().solveOverview(10) == 2_520;
+        assert Problem0005.create().solveInitial(20L) == 232_792_560;
+        assert Problem0005.create().solveOverview(20) == 232_792_560;
         
-        lap("20", () -> Problem0005.create(20).solve());
-        lap("[overview] 30", () -> Problem0005.create(30).solveOverview());
-        lap("[overview] 40", () -> Problem0005.create(40).solveOverview());
+        lap("20", () -> Problem0005.create().solveInitial(20L));
+        lap("[overview] 30", () -> Problem0005.create().solveOverview(30));
+        lap("[overview] 40", () -> Problem0005.create().solveOverview(40));
     }
 }

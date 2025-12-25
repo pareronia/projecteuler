@@ -1,5 +1,7 @@
 package com.github.pareronia.projecteuler;
 
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
+
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -10,21 +12,18 @@ import com.github.pareronia.projecteuler.geometry.Position;
 import com.github.pareronia.projecteuler.grid.Cell;
 import com.github.pareronia.projecteuler.grid.IntGrid;
 
-public class Problem0028 extends ProblemBase {
+public class Problem0028 extends ProblemBase<Long, Long> {
 
-    private final transient Integer input;
-
-    private Problem0028(final Integer input) {
-        this.input = input;
+    private Problem0028() {
     }
 
-    public static Problem0028 create(final Integer input) {
-        return new Problem0028(input);
+    public static Problem0028 create() {
+        return new Problem0028();
     }
 
     @Override
-    public Long solve() {
-        final int n = this.input;
+    public Long solve(final Long input) {
+        final int n = input.intValue();
         final int[][] values = new int[n][n];
         values[n / 2][n / 2] = 1;
         int i = 2;
@@ -48,8 +47,8 @@ public class Problem0028 extends ProblemBase {
     }
 
     public static void main(final String[] args) {
-        assert Problem0028.create(5).solve() == 101;
-        lap("1001", () -> Problem0028.create(1001).solve());
+        assert Problem0028.create().solve(5L) == 101;
+        lap("1001", () -> Problem0028.create().solve(1001L));
     }
 
     record DirectionAndPeriod(Direction direction, int period) {

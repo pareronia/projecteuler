@@ -1,5 +1,7 @@
 package com.github.pareronia.projecteuler;
 
+import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,22 +9,19 @@ import java.util.stream.IntStream;
 
 import com.github.pareronia.projecteuler.itertools.Heap;
 
-public class Problem0024 extends ProblemBase {
+public class Problem0024 extends ProblemBase<Long, Long> {
 
-    private final transient Integer input;
-
-    private Problem0024(final Integer input) {
-        this.input = input;
+    private Problem0024() {
     }
 
-    public static Problem0024 create(final Integer input) {
-        return new Problem0024(input);
+    public static Problem0024 create() {
+        return new Problem0024();
     }
 
     @Override
-    public Long solve() {
+    public Long solve(final Long input) {
         final List<Long> lst = new ArrayList<>();
-        Heap.accept(IntStream.range(0, this.input).toArray(), p -> lst.add(asLong(p)));
+        Heap.accept(IntStream.range(0, input.intValue()).toArray(), p -> lst.add(asLong(p)));
         Collections.sort(lst);
         return lst.get(999_999);
     }
@@ -36,6 +35,6 @@ public class Problem0024 extends ProblemBase {
     }
 
     public static void main(final String[] args) {
-        lap("10/1E6", () -> Problem0024.create(10).solve());
+        lap("10/1E6", () -> Problem0024.create().solve(10L));
     }
 }
