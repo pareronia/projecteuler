@@ -49,6 +49,7 @@ public class AllProblemsRunner<T extends ProblemBase<?, ?>> {
         PARAMS.put(28, new Params("1001", "669171001"));
         PARAMS.put(30, new Params("5", "443839"));
         PARAMS.put(67, new Params("classpath:0067_triangle.txt", "7273"));
+        PARAMS.put(92, new Params("10000000", "8581146"));
     }
 
     @SuppressWarnings("unchecked")
