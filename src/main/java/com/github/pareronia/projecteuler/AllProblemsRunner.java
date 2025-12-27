@@ -1,5 +1,6 @@
 package com.github.pareronia.projecteuler;
 
+import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -87,7 +88,11 @@ public class AllProblemsRunner<T extends ProblemBase<?, ?>> {
                 throw new UnsupportedOperationException("Unsupported type");
             }
             final Timed<?> timed = Timed.timed(callable, System::nanoTime);
-            listener.runCompleted(num, timed);
+            listener.runCompleted(
+                    num,
+                    PARAMS.get(num).output(),
+                    String.valueOf(timed.result()),
+                    timed.duration());
         }
     }
 
@@ -122,28 +127,47 @@ public class AllProblemsRunner<T extends ProblemBase<?, ?>> {
     }
 
     public static void main(final String[] args) throws Exception {
-        final AllListener listener = new AllListener();
+        final PrintStream out = System.out;
+        final AllListener listener = new AllListener(out);
         new AllProblemsRunner<>().run(listener);
-        System.out.println("");
-        System.out.println("Total: %s".formatted(ProblemUtils.printDuration(listener.total)));
+        out.println("");
+        out.println("Total: %.3f s".formatted(listener.total.toMillis() / 1000d));
     }
 
     private interface Listener {
-        void runCompleted(int problemNumber, Timed<?> result);
+        void runCompleted(int problemNumber, String expected, String actual, Duration duration);
     }
 
     private static final class AllListener implements Listener {
+        private final PrintStream out;
         private Duration total = Duration.ZERO;
 
+        private AllListener(final PrintStream out) {
+            this.out = out;
+        }
+
         @Override
-        public void runCompleted(final int problemNumber, final Timed<?> result) {
-            System.out.println(
-                    "%04d: %s, took %s"
-                            .formatted(
-                                    problemNumber,
-                                    ANSIColors.bold(result.result().toString()),
-                                    ProblemUtils.printDuration(result.duration())));
-            this.total = this.total.plus(result.duration());
+        public void runCompleted(
+                final int problemNumber,
+                final String expected,
+                final String actual,
+                final Duration duration) {
+            final String msg;
+            if (actual.equals(expected)) {
+                msg =
+                        "%04d: %s, took %s"
+                                .formatted(
+                                        problemNumber,
+                                        ANSIColors.bold(actual),
+                                        ProblemUtils.printDuration(duration));
+            } else {
+                msg =
+                        ANSIColors.red(
+                                "%04d: FAIL: expected %s, got %s"
+                                        .formatted(problemNumber, expected, actual));
+            }
+            this.out.println(msg);
+            this.total = this.total.plus(duration);
         }
     }
 }
