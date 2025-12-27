@@ -51,6 +51,7 @@ public class AllProblemsRunner<T extends ProblemBase<?, ?>> {
         PARAMS.put(30, new Params("5", "443839"));
         PARAMS.put(35, new Params("1000000", "55"));
         PARAMS.put(67, new Params("classpath:0067_triangle.txt", "7273"));
+        PARAMS.put(89, new Params("classpath:0089_roman.txt", "743"));
         PARAMS.put(92, new Params("10000000", "8581146"));
     }
 
