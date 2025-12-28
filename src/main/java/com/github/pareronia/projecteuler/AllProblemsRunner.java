@@ -21,7 +21,7 @@ public class AllProblemsRunner<T extends ProblemBase<?, ?>> {
 
     private record Params(String input, String output) {}
 
-    private static int NUM_PROBLEMS = 975;
+    private static int NUM_PROBLEMS = 976;
     private static final Map<Integer, Params> PARAMS = new HashMap<>();
 
     static {
@@ -53,6 +53,7 @@ public class AllProblemsRunner<T extends ProblemBase<?, ?>> {
         PARAMS.put(35, new Params("1000000", "55"));
         PARAMS.put(38, new Params("=none=", "932718654"));
         PARAMS.put(67, new Params("classpath:0067_triangle.txt", "7273"));
+        PARAMS.put(79, new Params("classpath:0079_keylog.txt", "73162890"));
         PARAMS.put(89, new Params("classpath:0089_roman.txt", "743"));
         PARAMS.put(92, new Params("10000000", "8581146"));
     }
