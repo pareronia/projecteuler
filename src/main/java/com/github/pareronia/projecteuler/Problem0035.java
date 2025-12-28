@@ -2,11 +2,11 @@ package com.github.pareronia.projecteuler;
 
 import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.LongStream;
 
 import com.github.pareronia.projecteuler.math.Primes;
+import com.github.pareronia.projecteuler.util.NumberUtils;
 
 public class Problem0035 extends ProblemBase<Long, Long> {
 
@@ -27,7 +27,7 @@ public class Problem0035 extends ProblemBase<Long, Long> {
     }
 
     private boolean test(final long num) {
-        final List<Integer> digits = getDigits(num);
+        final List<Integer> digits = NumberUtils.getDigits(num);
         if (digits.stream().anyMatch(d -> d == 5 || (d & 1) == 0)) {
             return false;
         }
@@ -41,16 +41,6 @@ public class Problem0035 extends ProblemBase<Long, Long> {
             }
         }
         return true;
-    }
-
-    private List<Integer> getDigits(final long num) {
-        final List<Integer> digits = new ArrayList<>();
-        long n = num;
-        while (n > 0) {
-            digits.add((int) n % 10);
-            n /= 10;
-        }
-        return digits;
     }
 
     public static void main(final String[] args) {

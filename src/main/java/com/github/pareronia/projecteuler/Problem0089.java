@@ -1,15 +1,17 @@
 package com.github.pareronia.projecteuler;
 
 import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
-
 import static java.util.stream.Collectors.joining;
-
-import com.github.pareronia.projecteuler.util.ProblemUtils;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.Map;
+
+import com.github.pareronia.projecteuler.util.NumberUtils;
+import com.github.pareronia.projecteuler.util.NumberUtils.DigitsIterator;
+import com.github.pareronia.projecteuler.util.ProblemUtils;
+import com.github.pareronia.projecteuler.util.StringUtils;
 
 public class Problem0089 extends ProblemBase<String, Long> {
 
@@ -32,7 +34,7 @@ public class Problem0089 extends ProblemBase<String, Long> {
 
     @Override
     public Long solve(final String input) {
-        return Arrays.stream(input.split("\\r?\\n"))
+        return Arrays.stream(StringUtils.splitLines(input))
                 .mapToLong(line -> line.length() - getMinimal(getValue(line)).length())
                 .sum();
     }
@@ -89,11 +91,11 @@ public class Problem0089 extends ProblemBase<String, Long> {
 
     private String getMinimal(final long num) {
         final Deque<String> q = new ArrayDeque<>();
-        long n = num;
+        final DigitsIterator digits = NumberUtils.digitsIterator(num);
         int pow = 0;
-        while (n > 0) {
+        while (digits.hasNext()) {
             final StringBuilder sb = new StringBuilder();
-            final long d = n % 10;
+            final long d = digits.next();
             final int p = (int) Math.pow(10, pow);
             if (d <= 3) {
                 sb.repeat(DIGITS.get(p), (int) d);
@@ -109,7 +111,6 @@ public class Problem0089 extends ProblemBase<String, Long> {
             }
             q.addFirst(sb.toString());
             pow++;
-            n /= 10;
         }
         return q.stream().collect(joining());
     }

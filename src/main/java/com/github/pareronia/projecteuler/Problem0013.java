@@ -6,6 +6,8 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.function.BinaryOperator;
 
+import com.github.pareronia.projecteuler.util.StringUtils;
+
 public class Problem0013 extends ProblemBase<Long, Long> {
 
     private static final String NUMBERS =
@@ -122,7 +124,7 @@ public class Problem0013 extends ProblemBase<Long, Long> {
     @Override
     public Long solve(final Long input) {
         final BigInteger big =
-                Arrays.stream(NUMBERS.split("\\r?\\n"))
+                Arrays.stream(StringUtils.splitLines(NUMBERS))
                         .map(s -> new BigInteger(s, 10))
                         .reduce(BigInteger.ZERO, (BinaryOperator<BigInteger>) BigInteger::add);
         return Long.valueOf(big.toString().substring(0, input.intValue()));

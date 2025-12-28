@@ -2,9 +2,6 @@ package com.github.pareronia.projecteuler;
 
 import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.stream.LongStream;
@@ -62,16 +59,6 @@ public class Problem0001 extends ProblemBase<Long, Long> {
 		return solveOverview(input);
 	}
 
-    protected static Stream<String> lines(final String filename) {
-        try (BufferedReader rdr =
-                new BufferedReader(
-                        new InputStreamReader(Problem0067.class.getResourceAsStream(filename)))) {
-
-        	return rdr.lines().toList().stream();
-        } catch (final IOException e) {
-            throw new RuntimeException("Could not read file '%'".formatted(filename), e);
-        }
-    }
     public static void main(final String[] args) {
         assert Problem0001.create().solveInitial(10L) == 23;
         assert Problem0001.create().solveAlt(10) == 23;

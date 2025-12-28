@@ -2,11 +2,11 @@ package com.github.pareronia.projecteuler;
 
 import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.github.pareronia.projecteuler.util.ProblemUtils;
+import com.github.pareronia.projecteuler.util.StringUtils;
 
 public class Problem0067 extends ProblemBase<String, Long> {
 
@@ -19,15 +19,7 @@ public class Problem0067 extends ProblemBase<String, Long> {
 
     @Override
     public Long solve(final String input) {
-        final int[][] triangle =
-                Arrays.stream(input.split("\\r?\\n"))
-                        .map(
-                                row ->
-                                        Arrays.stream(row.split(" "))
-                                                .mapToInt(Integer::parseInt)
-                                                .toArray())
-                        .toArray(int[][]::new);
-
+        final int[][] triangle = StringUtils.toIntMatrix(input);
         return new MaxPathSum(triangle).get(0, 0);
     }
 

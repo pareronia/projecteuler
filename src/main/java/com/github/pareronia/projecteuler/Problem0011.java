@@ -2,7 +2,6 @@ package com.github.pareronia.projecteuler;
 
 import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
 
-import java.util.Arrays;
 import java.util.OptionalLong;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
@@ -10,6 +9,7 @@ import java.util.stream.Stream;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 
 import com.github.pareronia.projecteuler.grid.IntGrid;
+import com.github.pareronia.projecteuler.util.StringUtils;
 
 public class Problem0011 extends ProblemBase<Long, Long> {
 
@@ -36,11 +36,7 @@ public class Problem0011 extends ProblemBase<Long, Long> {
             20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
             01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48
             """;
-    private static final IntGrid GRID =
-            IntGrid.from(
-                    Arrays.stream(THE_GRID.split("\\r?\\n"))
-                            .map(row -> row.split(" "))
-                            .toArray(String[][]::new));
+    private static final IntGrid GRID = IntGrid.from(StringUtils.toIntMatrix(THE_GRID));
 
     private Problem0011() {
     }

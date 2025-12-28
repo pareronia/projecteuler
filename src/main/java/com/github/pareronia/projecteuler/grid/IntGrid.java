@@ -11,14 +11,10 @@ public final class IntGrid implements Grid<Integer> {
     }
 
     public static IntGrid from(final int[][] values) {
+    	if (Arrays.stream(values).mapToInt(row -> row.length).distinct().count() > 1) {
+    		throw new IllegalArgumentException("Expected all rows to be equal size");
+    	}
         return new IntGrid(Arrays.stream(values).map(int[]::clone).toArray(int[][]::new));
-    }
-
-    public static IntGrid from(final String[][] values) {
-        return new IntGrid(
-                Arrays.stream(values)
-                        .map(row -> Arrays.stream(row).mapToInt(Integer::parseInt).toArray())
-                        .toArray(int[][]::new));
     }
 
     @Override

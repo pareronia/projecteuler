@@ -1,17 +1,17 @@
 package com.github.pareronia.projecteuler;
 
 import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
-
 import static java.util.stream.Collectors.toSet;
-
-import com.github.pareronia.projecteuler.itertools.Heap;
-import com.github.pareronia.projecteuler.util.ProblemUtils;
-import com.github.pareronia.projecteuler.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
+
+import com.github.pareronia.projecteuler.itertools.Heap;
+import com.github.pareronia.projecteuler.util.NumberUtils;
+import com.github.pareronia.projecteuler.util.ProblemUtils;
+import com.github.pareronia.projecteuler.util.StringUtils;
 
 public class Problem0079 extends ProblemBase<String, Long> {
 
@@ -57,15 +57,7 @@ public class Problem0079 extends ProblemBase<String, Long> {
                     }
                 }
             }
-            this.ans = asLong(p);
-        }
-
-        private long asLong(final int[] p) {
-            long ans = 0;
-            for (int i = 0; i < p.length; i++) {
-                ans += Math.pow(10, p.length - 1 - i) * p[i];
-            }
-            return ans;
+            this.ans = NumberUtils.asLong(p);
         }
     }
 }

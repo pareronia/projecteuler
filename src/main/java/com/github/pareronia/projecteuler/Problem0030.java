@@ -2,13 +2,15 @@ package com.github.pareronia.projecteuler;
 
 import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
 
+import com.github.pareronia.projecteuler.util.NumberUtils;
+
+import java.util.Iterator;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 public class Problem0030 extends ProblemBase<Long, Long> {
 
-    private Problem0030() {
-    }
+    private Problem0030() {}
 
     public static Problem0030 create() {
         return new Problem0030();
@@ -30,11 +32,10 @@ public class Problem0030 extends ProblemBase<Long, Long> {
                 .parallel()
                 .filter(
                         i -> {
-                            long num = i;
                             int ps = 0;
-                            while (num > 0) {
-                                ps += (int) Math.pow(num % 10, exp);
-                                num /= 10;
+                            final Iterator<Integer> digits = NumberUtils.digitsIterator(i);
+                            while (digits.hasNext()) {
+                                ps += (int) Math.pow(digits.next(), exp);
                             }
                             return ps == i;
                         })

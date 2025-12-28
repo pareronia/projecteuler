@@ -1,5 +1,6 @@
 package com.github.pareronia.projecteuler;
 
+import static com.github.pareronia.projecteuler.util.NumberUtils.asLong;
 import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
 
 import java.util.Arrays;
@@ -46,14 +47,6 @@ public class Problem0032 extends ProblemBase<NoInput, Long> {
             return Optional.of(prod);
         }
         return Optional.empty();
-    }
-
-    private long asLong(final int[] p) {
-        long ans = 0;
-        for (int i = 0; i < p.length; i++) {
-            ans += Math.pow(10, p.length - 1 - i) * p[i];
-        }
-        return ans;
     }
 
     public static void main(final String[] args) {
