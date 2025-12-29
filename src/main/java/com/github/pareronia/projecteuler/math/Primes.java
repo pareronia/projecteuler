@@ -50,6 +50,10 @@ public final class Primes {
     	}
     }
 
+    public static long[] primesUpTo(final long limit) {
+    	return LongStream.rangeClosed(0, limit).filter(Primes::isPrime).toArray();
+    }
+
     public static List<Integer> findFactors(final Long input) {
         final List<Integer> factors = new ArrayList<>();
 
