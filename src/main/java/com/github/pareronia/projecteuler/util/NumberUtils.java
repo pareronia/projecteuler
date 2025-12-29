@@ -1,8 +1,11 @@
 package com.github.pareronia.projecteuler.util;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 public final class NumberUtils {
 
@@ -18,6 +21,11 @@ public final class NumberUtils {
         final List<Integer> digits = new ArrayList<>();
         new DigitsIterator(num).forEachRemaining(digits::add);
         return digits;
+    }
+
+    public static LongStream getDigits(final BigInteger num) {
+    	final char[] chars = num.toString().toCharArray();
+    	return IntStream.range(0, chars.length).mapToLong(i -> chars[i] - '0');
     }
 
     public static DigitsIterator digitsIterator(final long num) {
