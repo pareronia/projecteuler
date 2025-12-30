@@ -11,7 +11,7 @@ public final class StringUtils {
 
     public static int[][] toIntMatrix(final String string) {
         return Arrays.stream(splitLines(string))
-                .map(row -> Arrays.stream(row.split(" ")).mapToInt(Integer::parseInt).toArray())
+                .map(row -> Arrays.stream(row.split("[ ,]")).mapToInt(Integer::parseInt).toArray())
                 .toArray(int[][]::new);
     }
 }
