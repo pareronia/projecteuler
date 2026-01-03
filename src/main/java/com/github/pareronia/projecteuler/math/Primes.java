@@ -54,45 +54,60 @@ public final class Primes {
     	return LongStream.rangeClosed(0, limit).filter(Primes::isPrime).toArray();
     }
 
-    public static List<Integer> findFactors(final Long input) {
+    public static List<Integer> findFactors(final long numbers) {
+        long n = numbers;
         final List<Integer> factors = new ArrayList<>();
-
-        long number = input;
-        int lastFactor;
-        if (number % 2 == 0) {
-            lastFactor = 2;
-            factors.add(2);
-            number /= 2;
-            while (number % 2 == 0) {
-                factors.add(2);
-                number /= 2;
+        for (int i = 2; i <= n / i; i++) {
+            while (n % i == 0) {
+                factors.add(i);
+                n /= i;
             }
-        } else {
-            lastFactor = 1;
         }
-        int factor = 3;
-        long maxFactor = (long) Math.floor(Math.sqrt(number));
-        while (number > 1 && factor <= maxFactor) {
-            if (number % factor == 0) {
-                factors.add(factor);
-                lastFactor = factor;
-                number /= factor;
-                while (number % factor == 0) {
-                    factors.add(factor);
-                    number /= factor;
-                }
-                maxFactor = (long) Math.floor(Math.sqrt(number));
-            }
-            factor += 2;
+        if (n > 1) {
+            factors.add((int) n);
         }
-        if (lastFactor == 1) {
-            factors.add((int) number);
-        } else if (number != 1) {
-            factors.add(factor);
-        }
-
         return factors;
     }
+
+//    public static List<Integer> findFactors(final Long input) {
+//        final List<Integer> factors = new ArrayList<>();
+//
+//        long number = input;
+//        int lastFactor;
+//        if (number % 2 == 0) {
+//            lastFactor = 2;
+//            factors.add(2);
+//            number /= 2;
+//            while (number % 2 == 0) {
+//                factors.add(2);
+//                number /= 2;
+//            }
+//        } else {
+//            lastFactor = 1;
+//        }
+//        int factor = 3;
+//        long maxFactor = (long) Math.floor(Math.sqrt(number));
+//        while (number > 1 && factor <= maxFactor) {
+//            if (number % factor == 0) {
+//                factors.add(factor);
+//                lastFactor = factor;
+//                number /= factor;
+//                while (number % factor == 0) {
+//                    factors.add(factor);
+//                    number /= factor;
+//                }
+//                maxFactor = (long) Math.floor(Math.sqrt(number));
+//            }
+//            factor += 2;
+//        }
+//        if (lastFactor == 1) {
+//            factors.add((int) number);
+//        } else if (number != 1) {
+//            factors.add(factor);
+//        }
+//
+//        return factors;
+//    }
 
     private void generate(final long limit) throws IOException {
         final Path path = Path.of(".").resolve(FILENAME);

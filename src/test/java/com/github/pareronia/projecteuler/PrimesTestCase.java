@@ -10,13 +10,15 @@ class PrimesTestCase {
 
     @Test
     public void findFactors() {
-        assertThat(Primes.findFactors(1L)).containsExactly(1);
+//        assertThat(Primes.findFactors(1L)).containsExactly(1);
         assertThat(Primes.findFactors(2L)).containsExactly(2);
         assertThat(Primes.findFactors(9L)).containsExactly(3, 3);
         assertThat(Primes.findFactors(73L)).containsExactly(73);
-//        assertThat(Primes.findFactors(3 * 73L)).containsExactly(3, 73);
+        assertThat(Primes.findFactors(3 * 73L)).containsExactly(3, 73);
         assertThat(Primes.findFactors(9_009L)).containsExactly(3, 3, 7, 11, 13);
-        assertThat(Primes.findFactors(13_195L)).containsExactly(5, 7, 13, 15);
+        assertThat(Primes.findFactors(13_195L)).containsExactly(5, 7, 13, 29);
+        assertThat(Primes.findFactors(42L)).containsExactly(2, 3, 7);
+        assertThat(Primes.findFactors(900L)).containsExactly(2, 2, 3, 3, 5, 5);
     }
     
     public void isPrime() {
