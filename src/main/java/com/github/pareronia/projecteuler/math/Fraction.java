@@ -6,7 +6,8 @@ public record Fraction(BigInteger numerator, BigInteger denominator) {
 
     public enum Operation {
         INVERT,
-        ADD
+        ADD,
+        MULTIPLY
     }
 
     public Fraction(final long numerator, final long denominator) {
@@ -27,7 +28,14 @@ public record Fraction(BigInteger numerator, BigInteger denominator) {
                 .reduce();
     }
 
-    private Fraction reduce() {
+    public Fraction multiply(final Fraction other) {
+        return new Fraction(
+                    this.numerator.multiply(other.numerator),
+                    this.denominator.multiply(other.denominator))
+                .reduce();
+    }
+
+    public Fraction reduce() {
         final BigInteger gcd = this.numerator.gcd(this.denominator);
         if (gcd.equals(BigInteger.ONE)) {
             return this;

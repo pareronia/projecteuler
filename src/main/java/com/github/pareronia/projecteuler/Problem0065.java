@@ -2,14 +2,14 @@ package com.github.pareronia.projecteuler;
 
 import static com.github.pareronia.projecteuler.util.ProblemUtils.lap;
 
-import com.github.pareronia.projecteuler.math.Fraction;
-import com.github.pareronia.projecteuler.math.Fraction.Operation;
-import com.github.pareronia.projecteuler.util.NumberUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
+
+import com.github.pareronia.projecteuler.math.Fraction;
+import com.github.pareronia.projecteuler.math.Fraction.Operation;
+import com.github.pareronia.projecteuler.util.NumberUtils;
 
 public class Problem0065 extends ProblemBase<Long, Long> {
 
@@ -51,6 +51,7 @@ public class Problem0065 extends ProblemBase<Long, Long> {
                 return switch (this.operation) {
                     case ADD -> fraction.add(this.operands[0]);
                     case INVERT -> fraction.invert();
+                    default -> throw new IllegalStateException();
                 };
             }
         }
